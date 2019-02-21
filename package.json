@@ -51,18 +51,19 @@
     }
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.5.4",
-    "vue": "^2.5.16",
+    "highcharts": "^7.0.2",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
+    "todomvc-app-css": "^2.2.0",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-highcharts": "^0.0.11",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^3.0.4",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0",
-    "highcharts": "^7.0.2",
-    "axios": "^0.18.0"
+    "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
