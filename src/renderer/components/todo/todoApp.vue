@@ -51,7 +51,7 @@
         completed: todos => todos.filter(todo => todo.done)
     }
     export default {
-        name: "App",
+        name: "todoApp",
         components: {Todo},
         vuex: {
             getters: {
