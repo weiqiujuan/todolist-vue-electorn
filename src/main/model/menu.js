@@ -1,7 +1,7 @@
 const {Menu, ipcMain, BrowserWindow} = require('electron')
 
 //右键菜单
-const contextMrnuTemplate = [
+const contextMenuTemplate = [
     {label: '复制', role: 'copy'},
     {label: '粘贴', role: 'paste'},
     {type: 'separator'},

@@ -31,6 +31,11 @@ export default new Router({
             component: require('@/components/todoAbout').default
         },
         {
+            path: '/sign',
+            name: 'sign',
+            component: require('@/components/Sign').default
+        },
+        {
             path: '*',
             redirect: '/home'
         }

@@ -1,6 +1,7 @@
 <template>
     <div id="menu">
-        <el-radio-group v-model="isCollapse">
+        <el-radio-group v-model="isCollapse" size="mini" fill="#eee" text-color="black"
+                        style="position: relative;left: 40px;">
             <el-radio-button :label="false">展开</el-radio-button>
             <el-radio-button :label="true">收起</el-radio-button>
         </el-radio-group>
@@ -8,14 +9,16 @@
                  :collapse="isCollapse">
             <el-submenu index="1">
                 <template slot="title">
-                    <i class="el-icon-location"></i>
+                    <i class="el-icon-location-outline"></i>
                     <span slot="title"><router-link to="home">TodoList</router-link></span>
                 </template>
                 <el-menu-item-group>
                     <el-menu-item index="1-1">
+                        <i class="el-icon-time"></i>
                         <router-link to="home">todoList</router-link>
                     </el-menu-item>
                     <el-menu-item index="1-2">
+                        <i class="el-icon-date"></i>
                         <router-link to="diary">日历</router-link>
                     </el-menu-item>
                 </el-menu-item-group>
@@ -41,7 +44,7 @@
         name: "Menu",
         data() {
             return {
-                isCollapse: true
+                isCollapse: false
             }
         },
         methods: {
@@ -56,8 +59,10 @@
 </script>
 
 <style scoped>
+
     .el-menu-vertical-demo:not(.el-menu--collapse) {
-        width: 200px;
-        min-height: 400px;
+        height: 543px;
     }
+
+
 </style>

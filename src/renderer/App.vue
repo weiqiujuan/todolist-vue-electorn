@@ -1,11 +1,13 @@
 <template>
     <div style="width: auto">
-        <el-container :style="{'height':winHeight+'px'}">
-            <el-aside style="width: 250px;height: auto;position: absolute;left: 0;">
+        <el-container style="height: 530px;width:790px;">
+            <el-aside style="position: absolute;left: 0;">
                 <Menu/>
             </el-aside>
-            <el-container style="width:750px;">
-                <el-header>Header</el-header>
+            <el-container>
+                <el-header style="height:30px;opacity:0.5;margin-left: -18px;background-color: #eee;">
+                    <Header/>
+                </el-header>
                 <el-main>
                     <router-view></router-view>
                 </el-main>
@@ -18,10 +20,11 @@
     import todoApp from './components/todo/todoApp'
     import store from './store/todo/store'
     import Menu from './components/Menu'
+    import Header from './components/Header'
 
     export default {
         name: 'todolist',
-        components: {Menu},
+        components: {Menu, Header},
 
         data() {
             return {
@@ -62,8 +65,38 @@
     }
 </script>
 
-<style>
-    body > .el-container {
-        margin-bottom: 40px;
+<style lang="scss">
+    * {
+        margin: 0;
+        padding: 0;
     }
+
+    .el-aside {
+        width: 200px !important;
+        background: #eee;
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        .el-menu {
+            background: #eee;
+        }
+    }
+
+    .el-container {
+        // padding:10px;
+        width: 100%;
+    }
+
+    .main-content {
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+
 </style>
