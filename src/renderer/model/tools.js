@@ -2,16 +2,16 @@ import md5 from 'js-md5'
 
 let app = {
     config: {
-        apiUrl: 'http://www.apiying.com/yuqing'
+        apiUrl: 'http://localhost:3000/'
     },
     storage: {
         set(key, value) {
-            localStorage.setItem(key, JSON.stringify(value));
+            localStorage.setItem(key, value);
         },
         get(key) {
             let result = localStorage.getItem(key)
             if (result) {
-                return JSON.parse(result)
+                return result
             } else {
                 return ''
             }

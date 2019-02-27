@@ -2,7 +2,9 @@
     <div class="header">
         <p style="float: left;text-align: center;padding-top:10px;font-size:14px;">TodoList桌面应用</p>
         <el-breadcrumb separator="|" class="breadcrumb">
-            <el-breadcrumb-item><router-link to='Sign'>登陆</router-link></el-breadcrumb-item>
+            <el-breadcrumb-item>
+                <router-link to='sign'  v-model="login">{{login}}</router-link>
+            </el-breadcrumb-item>
             <el-breadcrumb-item>
                 <a>注销</a>
             </el-breadcrumb-item>
@@ -13,9 +15,24 @@
 </template>
 
 <script>
+    import {eventBus} from "../../eventBus";
+
     export default {
         name: "Header",
-        methods: {}
+        data() {
+            return {
+                login: '登陆',
+            }
+        },
+        created() {
+            eventBus.$on('username', (params) => {
+                this.login = params
+            })
+        },
+
+        beforeDestroy() {
+            eventBus.$off('username')
+        }
     }
 </script>
 

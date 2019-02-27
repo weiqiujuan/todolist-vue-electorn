@@ -33,7 +33,7 @@ export default new Router({
         {
             path: '/sign',
             name: 'sign',
-            component: require('@/components/Sign').default
+            component: require('@/components/sign').default
         },
         {
             path: '*',

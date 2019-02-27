@@ -20,17 +20,18 @@
 
 <script>
     import tools from '../model/tools'
+    import {eventBus} from "../../eventBus";
 
     export default {
-        name: "Sign",
+        name: "sign",
         data() {
             return {
-                dialogFormVisible: false,
-                userinfo: {}
+                dialogFormVisible: true,
+                userinfo: {},
             }
         },
         //渲染之前
-        beforeMount() {
+        /*beforeMount() {
             //判断是否登陆
             let userinfo = tools.storage.get('userinfo')
             if (userinfo) {
@@ -38,22 +39,21 @@
             } else {
                 this.dialogFormVisible = true;
             }
-        },
+        },*/
         methods: {
             doLogin() {
-                //获取用户名和密码
-                //请求api接口实现登陆
-                //eg：先借用别人的http://www.apiying.com/yuqing/index.php?m=Api&a=log
-
                 if (this.userinfo.username && this.userinfo.password) {
-                    this.$http.post(tools.config.apiUrl + 'index.php?m=Api&a=login', {
+                    this.$http.post(tools.config.apiUrl + 'login', {
                         username: this.userinfo.username,
                         password: this.userinfo.password
                     }).then((response) => {
                         response = response.data;
-                        if (response.success) {
-                            tools.storage.set('userinfo', response.result);
+                        console.log(response)
+                        if (response) {
+                            this.userinfo.username = response.login.username
+                            console.log(this.userinfo.username)
                             this.dialogFormVisible = false;
+                            this.todo();
                         } else {
                             this.$message({
                                 message: response.message,
@@ -69,6 +69,9 @@
                         type: 'warning'
                     })
                 }
+            },
+            todo() {
+                eventBus.$emit('username', this.userinfo.username)
             }
 
         }
