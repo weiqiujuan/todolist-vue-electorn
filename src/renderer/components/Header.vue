@@ -3,10 +3,10 @@
         <p style="float: left;text-align: center;padding-top:10px;font-size:14px;">TodoList桌面应用</p>
         <el-breadcrumb separator="|" class="breadcrumb">
             <el-breadcrumb-item>
-                <router-link to='sign'  v-model="login">{{login}}</router-link>
+                <router-link to='sign' v-model="login">{{login}}</router-link>
             </el-breadcrumb-item>
             <el-breadcrumb-item>
-                <a>注销</a>
+                <a @click="destory">注销</a>
             </el-breadcrumb-item>
             <el-breadcrumb-item><a>关于我</a></el-breadcrumb-item>
         </el-breadcrumb>
@@ -21,7 +21,7 @@
         name: "Header",
         data() {
             return {
-                login: '登陆',
+                login: '登录',
             }
         },
         created() {
@@ -29,7 +29,11 @@
                 this.login = params
             })
         },
-
+        methods: {
+            destory() {
+                this.login='登录'
+            }
+        },
         beforeDestroy() {
             eventBus.$off('username')
         }
