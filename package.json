@@ -18,7 +18,7 @@
   },
   "build": {
     "productName": "todolist",
-    "appId": "com.example.yourapp",
+    "appId": "com.todolist",
     "directories": {
       "output": "build"
     },

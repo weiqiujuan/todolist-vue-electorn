@@ -3,7 +3,7 @@
     <div>
         <section class="todoapp">
             <header class="header">
-                <h1>todos</h1>
+                <h4>todos</h4>
                 <input type="text" class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?"
                        @keyup.enter="tryAddTodo">
             </header>

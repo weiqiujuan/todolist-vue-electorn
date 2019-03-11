@@ -1,11 +1,11 @@
 <template>
     <div style="width: auto">
-        <el-container style="height: 530px;width:790px;">
-            <el-aside style="position: absolute;left: 0;">
+        <el-container>
+            <el-aside style="position: relative;left:0;padding-top: 10px; opacity: 0.8">
                 <Menu/>
             </el-aside>
             <el-container>
-                <el-header style="height:30px;opacity:0.5;margin-left: -18px;background-color: #eee;">
+                <el-header style="background-color:#eee; opacity: 0.7;height:35px;">
                     <Header/>
                 </el-header>
                 <el-main>
@@ -17,8 +17,7 @@
 </template>
 
 <script>
-    import todoApp from './components/todo/todoApp'
-    import store from './store/todo/store'
+
     import Menu from './components/Menu'
     import Header from './components/Header'
 
@@ -64,6 +63,7 @@
         }
     }
 </script>
+
 
 <style lang="scss">
     * {

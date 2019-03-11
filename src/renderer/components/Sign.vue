@@ -15,12 +15,15 @@
                 <el-button style="width:80%" type="primary" @click="doLogin()">确 定</el-button>
             </div>
         </el-dialog>
+        <todo-app/>
     </div>
 </template>
 
 <script>
-    import tools from '../model/tools'
+    import tools from '../model/tools';
     import {eventBus} from "../../eventBus";
+    import todoApp from './todo/todoApp';
+    import store from '../store/todo/store';
 
     export default {
         name: "sign",
@@ -30,16 +33,21 @@
                 userinfo: {},
             }
         },
+        store,
+        components: {
+            todoApp
+        },
         //渲染之前
-        /*beforeMount() {
+        beforeMount() {
+            tools.storage.remove('userinfo');
             //判断是否登陆
             let userinfo = tools.storage.get('userinfo')
             if (userinfo) {
-                this.dialogFormVisible = false;
-            } else {
                 this.dialogFormVisible = true;
+            } else {
+                this.dialogFormVisible = false;
             }
-        },*/
+        },
         methods: {
             doLogin() {
                 if (this.userinfo.username && this.userinfo.password) {
@@ -50,6 +58,8 @@
                         response = response.data;
                         console.log(response)
                         if (response) {
+                            //保存用户信息
+                            //tools.storage.set('userinfo', response.login);
                             this.userinfo.username = response.login.username
                             console.log(this.userinfo.username)
                             this.dialogFormVisible = false;
@@ -73,9 +83,7 @@
             todo() {
                 eventBus.$emit('username', this.userinfo.username)
             }
-
         }
-
     }
 </script>
 

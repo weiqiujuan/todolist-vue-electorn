@@ -4,7 +4,7 @@ const {Menu, ipcMain, BrowserWindow} = require('electron')
 const contextMenuTemplate = [
     {label: '复制', role: 'copy'},
     {label: '粘贴', role: 'paste'},
-    {type: 'separator'},
+    {type: 'separator'},//分隔线
     {
         label: '其他功能', click: () => {
             console.log('click')
