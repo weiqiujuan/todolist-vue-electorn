@@ -1,0 +1,19 @@
+{
+  "images": [
+    {
+      "src": "/static/slider/img1.png"
+    },
+    {
+      "src": "/static/slider/img2.png"
+    },
+    {
+      "src": "/static/slider/img3.png"
+    },
+    {
+      "src": "/static/slider/img4.png"
+    },
+    {
+      "src": "/static/slider/img5.png"
+    }
+  ]
+}
