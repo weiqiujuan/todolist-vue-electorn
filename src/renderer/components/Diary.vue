@@ -20,8 +20,17 @@
 
 
         <div class="diolg">
+            <el-card class="box-card">
+                <div>{{Year}}-{{Month+1}}-{{date}}</div>
+                <div v-for="(item,index) in list" :key="index" class="text item">
+                    {{'列表内容 ' + item }}
+                </div>
+            </el-card>
+
+            <ve-pie :data="chartData" style="margin-top: 10px;" :settings="chartSettings"></ve-pie>
 
         </div>
+
     </div>
 </template>
 
@@ -33,29 +42,45 @@
         components: {},
 
         data() {
+            this.chartSettings = {
+                dataType: 'percent'
+            }
             return {
+                list: ['vue', 'todo', 'list'],
                 Year: new Date().getFullYear(),
                 Month: new Date().getMonth(),
                 date: new Date().getDate(),
                 calendarHeader: ["日", "一", "二", "三", "四", "五", "六"],
-                /*chartData: {
+                chartData: {
                     columns: ['状态', '备注'],
                     rows: [
-                        { '状态': '完成', '备注': 100},
-                        { '状态': '未完成', '备注': 100},
-                        { '状态': '已取消', '备注': 79}
+                        {'状态': '完成', '备注': 1},
+                        {'状态': '未完成', '备注': 0.7},
+                        {'状态': '已取消', '备注': 0.79}
                     ]
-                }*/
+                },
             }
         },
         mounted() {
-
+            this.getDataList();
         },
         methods: {
+            getDataList() {
+                let api = tools.config.apiUrl + 'historyApi'
+                let dataTime = this.Year + '-' + (this.Month+1) + '-' + this.date
+                this.$http.post(api, {
+                    start_time: dataTime,
+                    end_time: '',
+                }).then((response) => {
+                    console.log(response)
+                    //this.list=response.todos;
+                })
+            },
             handleDayClick(item) {
                 if (item.type === 'normal') {
                     this.date = Number(item.content)
                 }
+                this.getDataList();
             },
             displayDaysPerMonth(year) {
                 //每个月的天数，如果闰年，二月为29天
@@ -153,14 +178,35 @@
 </script>
 
 <style scoped>
+    .diaryPage {
+        display: flex;
+    }
+
+    .diolg {
+        margin: 0px 15px;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        padding: 14px;
+    }
+
+    .box-card {
+        width: 420px;
+    }
+
     .calendar {
         flex-shrink: 0;
-        width: 355px;
-        max-width: 355px;
+        width: 94.6vw;
+        height: 560px;
+        max-width: 435px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 15px 0 20px 0;
+        margin: 0px 0 20px 0;
         border-radius: 4px;
         background-color: white;
         box-shadow: 0 0 10px rgba(208, 208, 208, 0.5);
@@ -168,8 +214,8 @@
 
     .calendar__header {
         color: #2c3135;
-        font-size: 16px;
-        width: 315px;
+        font-size: 18px;
+        width: 403.2px;
         display: flex;
         align-self: center;
         justify-content: space-between;
@@ -178,7 +224,7 @@
     }
 
     .header__title {
-        font-size: 16px;
+        font-size: 18px;
         letter-spacing: 1px;
     }
 
@@ -212,8 +258,8 @@
     }
 
     .calendar__main {
-        width: 315px;
-        max-width: 315px;
+        width: 84vw;
+        max-width: 403.2px;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
@@ -221,13 +267,13 @@
     }
 
     .main__block-header, .main__block {
-        width: 44px;
-        height: 44px;
-        max-width: 44px;
-        max-height: 44px;
+        width: 11.8vw;
+        height: 11.8vw;
+        max-width: 56.32px;
+        max-height: 56.32px;
         margin-bottom: 15px;
         border-radius: 2px;
-        font-size: 12px;
+        font-size: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
