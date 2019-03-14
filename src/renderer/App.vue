@@ -1,7 +1,7 @@
 <template>
-    <div style="width: auto">
+    <div style="width: auto" class="todoApp">
         <el-container>
-            <el-aside style="position: relative;left:0;padding-top: 10px; opacity: 0.8">
+            <el-aside style="position: relative;left:0;padding-top: 8px;opacity: 0.6">
                 <Menu/>
             </el-aside>
             <el-container>
@@ -69,17 +69,25 @@
     * {
         margin: 0;
         padding: 0;
+
+    }
+    .todoApp{
+        background-image: url("../../static/leaves.png");
+        width: 1335px;
+        height: 735px;
+        background-size: cover;
+        z-index: 111;
     }
 
     .el-aside {
         width: 200px !important;
-        background: #eee;
+        //background: #eee;
         a {
             color: #333;
             text-decoration: none;
         }
         .el-menu {
-            background: #eee;
+         //  background: #eee;
         }
     }
 

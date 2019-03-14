@@ -18,7 +18,7 @@
             <el-timeline>
                 <el-timeline-item placement="top" v-for="(activity, index) in activities"
                                   :timestamp="activity.timestamp" :key="index">
-                    <el-card>
+                    <el-card style="opacity: 0.7">
                         <ol class="content-item">
                             <li v-for="(item,index) in activity.content" :key="index">{{item}}</li>
                         </ol>

@@ -53,7 +53,6 @@
         text-align: center;
         color: #475669;
         font-size: 18px;
-        opacity: 0.75;
         line-height: 500px;
         margin: 0;
     }

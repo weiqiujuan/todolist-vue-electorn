@@ -60,9 +60,9 @@
 
 <style scoped>
 
-    .el-menu-vertical-demo:not(.el-menu--collapse) {
-        height: 543px;
-    }
+    /*.el-menu-vertical-demo:not(.el-menu--collapse) {
+        height: 735px;
+    }*/
 
 
 </style>

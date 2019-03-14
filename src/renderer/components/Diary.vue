@@ -1,6 +1,5 @@
 <template>
     <div class="diaryPage">
-        <!--<ve-pie :data="chartData" ></ve-pie>-->
         <div class="calendar">
             <div class="calendar__header">
                 <div class="header__arrow header__pre" @click="handlePreMonth"></div>
@@ -20,7 +19,7 @@
 
 
         <div class="diolg">
-            <el-card class="box-card">
+            <el-card class="box-card" style="opacity: 0.5;">
                 <div>{{Year}}-{{Month+1}}-{{date}}</div>
                 <div v-for="(item,index) in list" :key="index" class="text item">
                     {{'列表内容 ' + item }}
@@ -94,7 +93,7 @@
                 daysPreMonth.unshift(daysPreMonth.pop())
 
                 let addDaysFromPreMonth = new Array(12).fill(null).map((item, index) => {
-                    //获得星期数
+                    //获取指定年月的1号都是周几
                     let day = new Date(year, index, 1).getDay();
                     if (day === 0) {
                         return 6;
@@ -199,6 +198,7 @@
     }
 
     .calendar {
+        color: #000;
         flex-shrink: 0;
         width: 94.6vw;
         height: 560px;
@@ -209,6 +209,7 @@
         margin: 0px 0 20px 0;
         border-radius: 4px;
         background-color: white;
+        opacity: 0.7;
         box-shadow: 0 0 10px rgba(208, 208, 208, 0.5);
     }
 
@@ -300,8 +301,8 @@
 
     .main__block-today {
         transition: 0.5s all;
-        background-color: #f93d3a;
-        color: #fff;
+        background-color:  #7f8fa4;
+        opacity: 0.6;
         box-shadow: 0 2px 6px rgba(171, 171, 171, 0.5);
     }
 
