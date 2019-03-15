@@ -38,7 +38,7 @@
             todoApp
         },
         //渲染之前
-        beforeMount() {
+       /* beforeMount() {
             tools.storage.remove('userinfo');
             //判断是否登陆
             let userinfo = tools.storage.get('userinfo')
@@ -47,7 +47,7 @@
             } else {
                 this.dialogFormVisible = false;
             }
-        },
+        },*/
         methods: {
             doLogin() {
                 if (this.userinfo.username && this.userinfo.password) {
@@ -57,16 +57,16 @@
                     }).then((response) => {
                         response = response.data;
                         console.log(response)
-                        if (response) {
-                            //保存用户信息
-                            //tools.storage.set('userinfo', response.login);
-                            this.userinfo.username = response.login.username
-                            console.log(this.userinfo.username)
+                        if (response.ret_code===0) {
                             this.dialogFormVisible = false;
+                            this.$message({
+                                message:'登录成功',
+                                type:'info'
+                            })
                             this.todo();
                         } else {
                             this.$message({
-                                message: response.message,
+                                message: response.ret_msg,
                                 type: 'warning'
                             })
                         }

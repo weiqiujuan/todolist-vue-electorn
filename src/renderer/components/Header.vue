@@ -6,7 +6,7 @@
                 <router-link to='sign' v-model="login">{{login}}</router-link>
             </el-breadcrumb-item>
             <el-breadcrumb-item>
-                <a @click="destory">注销</a>
+                <a @click="logout">注销</a>
             </el-breadcrumb-item>
             <el-breadcrumb-item><a>关于我</a></el-breadcrumb-item>
         </el-breadcrumb>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import tools from '../model/tools';
     import {eventBus} from "../../eventBus";
 
     export default {
@@ -30,12 +31,30 @@
             })
         },
         methods: {
-            destory() {
-                this.login='登录'
+            logout() {
+                this.$http.get(tools.config.apiUrl + 'logout')
+                    .then((response) => {
+                        console.log(response)
+                        if (response.ret_code === 2) {
+                            this.$message({
+                                message: response.ret_msg,
+                                type: 'warning'
+                            })
+                        } else {
+                            this.login = '登录'
+                            this.$message({
+                                message: '退出登录成功',
+                                type: 'info'
+                            })
+                            this.$router.push({path:'/home'})
+                        }
+                    }).catch(function (error) {
+                    console.log(error)
+                })
+            },
+            beforeDestroy() {
+                eventBus.$off('username')
             }
-        },
-        beforeDestroy() {
-            eventBus.$off('username')
         }
     }
 </script>
