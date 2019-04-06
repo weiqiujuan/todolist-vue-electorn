@@ -5,7 +5,7 @@
                 <Menu/>
             </el-aside>
             <el-container>
-                <el-header style="background-color:#eee; opacity: 0.7;height:35px;">
+                <el-header style="opacity: 0.7;height:35px; border-bottom: 1px solid rgb(238,238,238)">
                     <Header/>
                 </el-header>
                 <el-main>
@@ -80,7 +80,7 @@
     }
 
     .el-aside {
-        width: 200px !important;
+        width: 17% !important;
         //background: #eee;
         a {
             color: #333;

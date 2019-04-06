@@ -58,6 +58,7 @@
     "js-md5": "^0.7.3",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
+    "scss": "^0.2.4",
     "todomvc-app-css": "^2.2.0",
     "v-charts": "^1.19.0",
     "vue": "^2.5.16",

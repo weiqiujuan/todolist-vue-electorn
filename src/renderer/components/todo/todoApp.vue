@@ -38,13 +38,11 @@
 
 <script>
     import Todo from './TodoItem'
-
     import {
         addTodo,
         toggleAll,
         clearCompleted
     } from "../../store/todo/action";
-
     const filters = {
         all: todos => todos,
         active: todos => todos.filter(todo => !todo.done),
@@ -97,5 +95,4 @@
 </script>
 
 <style scoped>
-
 </style>
