@@ -80,7 +80,7 @@
     }
 
     .el-aside {
-        width: 17% !important;
+        width: 20% !important;
         //background: #eee;
         a {
             color: #333;

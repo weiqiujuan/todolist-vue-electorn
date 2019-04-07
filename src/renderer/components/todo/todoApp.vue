@@ -12,7 +12,7 @@
         <section class="main">
             <input type="checkbox" class="toggle-all" :checked="allChecked" @change="toggleAll(!allChecked)">
             <ul class="todo-list">
-                <todo v-for="todo in filteredTodos" :todo="todo"></todo>
+                <todo v-for="todo in filteredTodos" :todo="todo"/>
             </ul>
         </section>
 
@@ -43,6 +43,7 @@
         toggleAll,
         clearCompleted
     } from "../../store/todo/action";
+
     const filters = {
         all: todos => todos,
         active: todos => todos.filter(todo => !todo.done),

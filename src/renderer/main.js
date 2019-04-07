@@ -3,19 +3,24 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
-//import store from './store/todo/store'l
 
 
 import ElementUI from 'element-ui'
+import iview from 'iview';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueHighcharts from 'vue-highcharts';
 import VueSocketIO from 'vue-socket.io'
 import VueEcharts from 'v-charts'
 
+import Service from '../../util/service'
+
 
 Vue.use(ElementUI);
 Vue.use(VueHighcharts);
 Vue.use(VueEcharts)
+Vue.use(iview)
+
+Vue.use(Service)
 
 //引入socket.io配置连接
 Vue.use(new VueSocketIO({
@@ -31,6 +36,8 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
+//先注册存储，再注册服务
+
 new Vue({
     components: {App},
     router,
@@ -38,12 +45,4 @@ new Vue({
 }).$mount('#app')
 
 
-/*import Vue from 'vue'
-import store from './store/todo/store'
-import todoApp from './components/todo/todoApp'
 
-new Vue({
-    store, // inject store to all children
-    el: '#app',
-    render: h => h(todoApp)
-})*/

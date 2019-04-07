@@ -11,6 +11,11 @@ export default new Router({
             component: require('@/components/home').default
         },
         {
+            path: '/todayItem',
+            name: 'todayItem',
+            component: require('@/components/todayItem').default
+        },
+        {
             path: '/diary',
             name: 'diary',
             component: require('@/components/diary').default

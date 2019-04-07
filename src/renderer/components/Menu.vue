@@ -18,6 +18,10 @@
                         <router-link to="home">todoList</router-link>
                     </el-menu-item>
                     <el-menu-item index="1-2">
+                        <i class="el-icon-tickets"></i>
+                        <router-link to="todayItem">今日详情</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="1-3">
                         <i class="el-icon-date"></i>
                         <router-link to="diary">日历</router-link>
                     </el-menu-item>

@@ -3,6 +3,7 @@
         <div class="view">
             <input type="checkbox" class="toggle" :checked="todo.done" @change="toggleTodo(todo)">
             <label v-text="todo.text" @dblclick="editing=true"></label>
+            <button class="work" @click="work"></button>
             <button class="destroy" @click="deleteTodo(todo)"></button>
         </div>
         <input class="edit" v-show="editing" v-focus="editing" :value="todo.text" @keyup.enter="doneEdit"
@@ -25,7 +26,7 @@
         },
         data() {
             return {
-                editing: false
+                editing: false,
             }
         },
         directives: {
@@ -50,7 +51,11 @@
             cancelEdit(e) {
                 e.target.value = this.todo.text
                 this.editing = false
+            },
+            work() {
+                this.$router.push({path: '../TodayItem'})
             }
+
         }
     }
 </script>
