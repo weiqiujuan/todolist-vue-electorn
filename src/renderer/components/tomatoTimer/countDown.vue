@@ -5,9 +5,7 @@
             <i-circle v-bind:percent="percent" :size=360>
                 <span class="circle-time">{{timeStr}}</span>
             </i-circle>
-<!--
             <el-input v-model="content" type="textarea" placeholder="请输入您要完成的任务..."/>
--->
         </div>
         <div class="btn-group">
             <el-button type="success" v-on:click="startWork">开始工作</el-button>
@@ -17,9 +15,8 @@
     </div>
 </template>
 <script>
-    import {TYPE} from './keys';
-    import dom from './dom';
-    import {popInfo} from './state';
+    import {eventBus} from "../../../eventBus";
+    import tools from '../../model/tools.js';
 
     export default {
         name: 'countDown',
@@ -28,41 +25,45 @@
                 percent: 0,
                 timeStr: '00:00',
                 timeIndex: null,
-                currentRecord: null,
-                content: null
+                content: '计时工作',
+                workDuration: 25,
+                restDuration: 5,
+                startTime: null,
+                endTime: null,
+                state: null
             };
         },
-        props: {
-            workDuration: {
-                type: Number,
-                default: 25
-            },
-            restDuration: {
-                type: Number,
-                default: 5
-            }
+        created() {
+            eventBus.$on('setting', (params) => {
+                this.workDuration = parseInt(params.workDuration);
+                this.restDuration = parseInt(params.restDuration);
+            })
         },
         methods: {
             startWork() {
-                // 750 / 1500 * 100
-                //this.percent += 10;
                 this.percent = 100;
                 this.timeStr = this.workDuration + ":00";
                 let workTime = this.workDuration * 60;
                 this.durationPro(workTime);
-                this.$service.tomato.start(TYPE.work, workTime, this.content);
+                alert('开始工作啦，加油呦')
+                this.startTime = (new Date()).toLocaleString()
             },
             startRest() {
                 this.percent = 100;
                 this.timeStr = "0" + this.restDuration + ":00";
                 let restTime = this.restDuration * 60;
                 this.durationPro(restTime);
-                this.$service.tomato.start(TYPE.rest, restTime, "休息时间");
+                alert('工作幸苦啦，放松一下');
+                this.startTime = (new Date()).toLocaleString();
+                this.content = '休息一下下';
             },
             stop() {
-                this.$service.tomato.stop(false);
+                alert('确定停止工作？')
+                this.endTime = (new Date()).toLocaleString()
+                this.state = '未完成'
                 window.clearInterval(this.timeIndex);
                 this.timeIndex = null;
+                this.loadData();
             },
             durationPro(time) {
                 let increase = 0, step = 2;
@@ -73,14 +74,14 @@
                     increase++;
                     if (increase > time) { //时间到点
                         this.percent = 0;
-                        this.$service.tomato.stop(true);
                         window.clearTimeout(this.timeIndex);
-                        dom.setTitle(popInfo.complete);
-                        dom.alert(popInfo.complete);
+                        alert("恭喜你，完成一个任务")
+                        this.endTime = (new Date()).toLocaleString()
+                        this.state = '完成'
+                        this.loadData();
                         return;
                     }
                     this.timeStr = this.secondToTime(time - increase);
-                    dom.setTitle(popInfo.runtime + this.timeStr);
                     if (!(increase % step)) { //不应该算百分比
                         return;
                     }
@@ -94,6 +95,26 @@
                     second = time % 60;
                 return (minute >= 10 ? minute : '0' + minute)
                     + ":" + (second >= 10 ? second : '0' + second);
+            },
+            loadData() {
+               /* let data = {}
+                data = {
+                    startTime: this.startTime,
+                    endTime: this.endTime,
+                    content: this.content,
+                    state: this.state
+                }*/
+
+                let api = tools.config.apiUrl + 'saveTomatoData'
+
+                this.$http.post(api,  {
+                    startTime: this.startTime,
+                    endTime: this.endTime,
+                    content: this.content,
+                    state: this.state
+                }).then((response) => {
+                    console.log(response)
+                })
             }
         }
     }
@@ -128,7 +149,7 @@
     .tomato-block .circle-time {
         font-size: 120px;
         position: absolute;
-        top: 50%;
-        left: 30%;
+        top: 43%;
+        left: 27%;
     }
 </style>

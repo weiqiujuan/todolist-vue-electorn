@@ -2,10 +2,10 @@
     <div style="height: auto;">
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="番茄计时" name="work">
-                <CountDown v-bind:workDuration="setting.workDuration" v-bind:restDuration="setting.restDuration" />
+                <CountDown/>
             </el-tab-pane>
             <el-tab-pane label="工作记录" name="history">
-                <History/>
+                <history/>
             </el-tab-pane>
             <el-tab-pane label="时间设置" name="setting">
                 <Setting/>
@@ -15,10 +15,11 @@
 </template>
 
 <script>
-    import CountDown from './countDown.vue';
-    import History from './history.vue';
-    import Setting from './setting.vue';
+    import CountDown from './countDown';
+    import History from './history';
+    import Setting from './setting';
 
+    let setting;
     export default {
         name: "tomato",
         components: {
@@ -36,9 +37,9 @@
                 console.log(tab, event);
             }
         },
-        computed: {
-            setting: function () {
-                let setting = this.$service.tomato.getSetting();
+        computed:{
+            setting:function(){
+                setting = this.$service.tomato.getSetting();
                 return setting;
             }
         }

@@ -8,7 +8,7 @@
                 <el-header style="opacity: 0.7;height:35px; border-bottom: 1px solid rgb(238,238,238)">
                     <Header/>
                 </el-header>
-                <el-main>
+                <el-main style=" padding: 5px 10px;">
                     <router-view></router-view>
                 </el-main>
             </el-container>
@@ -80,7 +80,7 @@
     }
 
     .el-aside {
-        width: 20% !important;
+        width: 22% !important;
         //background: #eee;
         a {
             color: #333;

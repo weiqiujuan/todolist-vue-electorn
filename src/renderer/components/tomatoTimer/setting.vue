@@ -7,29 +7,27 @@
 </template>
 
 <script>
-
-    import {Setting} from './model';
-    import {optionsDefault} from './state';
+    import {eventBus} from "../../../eventBus";
 
     export default {
         name: "setting",
         data() {
             return {
-                workDuration: optionsDefault.workDuration,
-                restDuration: optionsDefault.restDuration
-            }
-        },
-        beforeMount() {
-            let setting = this.$service.tomato.getSetting();
-            if (setting) {
-                this.workDuration = setting.workDuration;
-                this.restDuration = setting.restDuration;
+                workDuration: 25,
+                restDuration: 5
             }
         },
         methods: {
             save: function () {
-                let setting = new Setting(this.workDuration, this.restDuration);
-                this.$service.tomato.saveSetting(setting);
+                let workDuration = this.workDuration;
+                let restDuration = this.restDuration;
+                let Duration={
+                    workDuration:this.workDuration,
+                    restDuration:this.restDuration,
+                }
+                eventBus.$emit('setting',Duration)
+                console.log(Duration)
+                alert('保存成功,设置工作时间为' + workDuration + '分钟,休息时间为' + restDuration+'分钟')
             }
         }
     }

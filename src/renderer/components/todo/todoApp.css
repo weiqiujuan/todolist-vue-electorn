@@ -278,7 +278,7 @@ body {
 
 .footer:before {
     content: '';
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;
