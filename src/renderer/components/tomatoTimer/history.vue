@@ -35,7 +35,8 @@
                 <template slot-scope="scope">
                     <el-tag
                             :type="scope.row.state === '完成' ? 'primary' : 'success'"
-                            disable-transitions>{{scope.row.state}}</el-tag>
+                            disable-transitions>{{scope.row.state}}
+                    </el-tag>
                 </template>
             </el-table-column>
         </el-table>
@@ -43,6 +44,7 @@
 </template>
 <script>
     import tools from '../../model/tools.js';
+import { clearInterval } from 'timers';
 
     export default {
         name: 'history',
@@ -54,19 +56,32 @@
                     content: '王小虎',
                     state: '完成'
                 }]
-
             }
         },
-        beforeMount(){
-            let api = tools.config.apiUrl + 'findTomatoData'
-            this.$http.get(api).then((response) => {
-                this.tableData=response.data
-            })
+        //快速刷新
+        mounted() {
+            if(this.timer){
+                clearInterval(this.timer)
+            }else{
+                this.timer=setInterval(()=>{
+                    this.loadData()
+                },600)
+            }
+        },
+        destroyed(){
+            clearInterval(this.timer)
         },
         methods: {
             resetDateFilter() {
-                let api = tools.config.apiUrl + 'deleteTomatoData'
-                this.$http.get(api)
+               /* let api = tools.config.apiUrl + 'deleteTomatoData'
+                this.$http.get(api)*/
+                this.loadData()
+            },
+            loadData() {
+                let api = tools.config.apiUrl + 'findTomatoData'
+                this.$http.get(api).then((response) => {
+                    this.tableData = response.data
+                })
             },
             clearFilter() {
                 this.$refs.filterTable.clearFilter();
@@ -85,13 +100,16 @@
         background: #f8f8f9;
         color: #657180;
     }
+
     .tomato-history .row-err td {
         background: #bbbec4;
         color: #fff;
     }
+
     .tomato-history .state-cell .run {
         margin-left: 10px;
     }
+
     .tomato-history .state-cell .run.undone {
         color: #ed3f14;
     }

@@ -150,6 +150,6 @@
         font-size: 120px;
         position: absolute;
         top: 43%;
-        left: 27%;
+        left: 30.5%;
     }
 </style>
