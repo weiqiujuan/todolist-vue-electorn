@@ -44,7 +44,6 @@
 </template>
 <script>
     import tools from '../../model/tools.js';
-import { clearInterval } from 'timers';
 
     export default {
         name: 'history',
@@ -58,16 +57,18 @@ import { clearInterval } from 'timers';
                 }]
             }
         },
-        //快速刷新
+        //定时刷新
         mounted() {
             if(this.timer){
                 clearInterval(this.timer)
             }else{
                 this.timer=setInterval(()=>{
+                    //获取数据
                     this.loadData()
                 },600)
             }
         },
+        //组件销毁时清除
         destroyed(){
             clearInterval(this.timer)
         },
@@ -96,21 +97,4 @@ import { clearInterval } from 'timers';
     }
 </script>
 <style scoped>
-    .tomato-history .row-info td {
-        background: #f8f8f9;
-        color: #657180;
-    }
-
-    .tomato-history .row-err td {
-        background: #bbbec4;
-        color: #fff;
-    }
-
-    .tomato-history .state-cell .run {
-        margin-left: 10px;
-    }
-
-    .tomato-history .state-cell .run.undone {
-        color: #ed3f14;
-    }
 </style>
