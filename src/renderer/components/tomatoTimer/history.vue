@@ -4,7 +4,7 @@
         <el-button @click="clearFilter">清除所有过滤器</el-button>
         <el-table
                 ref="filterTable"
-                :data="tableData"
+                :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                 style="width: 100%">
             <el-table-column
                     prop="startTime"
@@ -39,7 +39,22 @@
                     </el-tag>
                 </template>
             </el-table-column>
+            <el-table-column
+                    prop="edit"
+                    label="编辑"
+                    width="120"
+                    >
+                <template slot-scope="scope">
+                    <el-button type="danger" icon="el-icon-delete" circle  @click.native.prevent="deleteRow(scope.$index, tableData)"></el-button>
+                </template>
+            </el-table-column>
         </el-table>
+        <div class="block" style="margin-top:15px;margin-left: -5px">
+            <el-pagination align='center'
+                           @size-change="handleSizeChange"
+                           @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[6,1,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+            </el-pagination>
+        </div>
     </div>
 </template>
 <script>
@@ -54,7 +69,10 @@
                     endTime: '2016-05-02',
                     content: '王小虎',
                     state: '完成'
-                }]
+                }],
+                currentPage:1,
+                total:20,
+                pageSize:6,
             }
         },
         //定时刷新
@@ -92,6 +110,18 @@
             },
             filterContent(value, row) {
                 return row.content === value;
+            },
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
+            handleSizeChange(val){
+                console.log(`每页${val}条`);
+                this.currentPage=1;
+                this.pageSize=val;
+            },
+            handleCurrentChange(val){
+                console.log(`当前页：${val}`);
+                this.currentPage=val;
             }
         }
     }

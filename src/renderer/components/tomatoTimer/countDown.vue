@@ -23,7 +23,7 @@
         data() {
             return {
                 percent: 0,
-                timeStr: '00:00',
+                timeStr: '25:00',
                 timeIndex: null,
                 content: '计时工作',
                 workDuration: 25,

@@ -12,7 +12,7 @@
                     align="right"
                     value-format="yyyy-MM-dd">
             </el-date-picker>
-            <el-button icon="el-icon-search" circle @click="inSearch()"></el-button>
+            <el-button icon="el-icon-search" circle @click="inSearch()"/>
         </div>
         <div class="historylist">
             <el-timeline>
@@ -39,7 +39,7 @@
             return {
                 pickerOptions2: {
                     shortcuts: [{
-                        text: '最近一周',
+                        text: '最近一天',
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -55,7 +55,7 @@
                             picker.$emit('pick', [start, end]);
                         }
                     }, {
-                        text: '最近一天',
+                        text: '最近一周',
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -67,15 +67,15 @@
                 valueTime: '',
 
                 activities: [{
-                    content: ['vue', 'react', '1018-10-34', 'vue', 'react', '1018-10-34'],
-                    timestamp: '2018-04-03',
+                    content: ['vue', 'react', '2018-10-30', 'vue', 'react'],
+                    timestamp: '2018-04-11',
                     remarks: [],
                 }, {
                     content: ['2018-04-12 ', 'todos'],
-                    timestamp: '2018-04-12',
+                    timestamp: '2018-04-10',
                 }, {
-                    content: ['魏秋娟 ', 'todos'],
-                    timestamp: '2018-04-15',
+                    content: [' 论文大纲', 'todos'],
+                    timestamp: '2018-04-09',
                 }]
             }
         },
@@ -83,7 +83,7 @@
             inSearch() {
                 let time = this.valueTime;
                 if (!time) {
-                    alert('请选择或输入要查询的时间段');
+                    alert('请选择或输入所要查询的时间');
                 }
                 let start_time = time[0];
                 let end_time = time[1];

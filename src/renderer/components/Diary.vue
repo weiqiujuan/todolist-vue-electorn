@@ -17,16 +17,16 @@
             </div>
         </div>
 
-
         <div class="diolg">
             <el-card class="box-card" style="opacity: 0.5;">
                 <div>{{Year}}-{{Month+1}}-{{date}}</div>
                 <div v-for="(item,index) in list" :key="index" class="text item">
-                    {{'列表内容 ' + item }}
+                    <li>{{item}}</li>
                 </div>
             </el-card>
 
-            <ve-pie :data="chartData" style="margin-top: 10px;" :settings="chartSettings"></ve-pie>
+            <ve-pie :data="chartData" style="margin-top: 10px;"
+                    :settings="chartSettings"></ve-pie>
 
         </div>
 
@@ -45,18 +45,20 @@
                 dataType: 'percent'
             }
             return {
-                list: ['vue', 'todo', 'list'],
+                list: ['vue', 'react', 'electron'],
+                state: [0, 1, 2],
                 Year: new Date().getFullYear(),
                 Month: new Date().getMonth(),
                 date: new Date().getDate(),
                 calendarHeader: ["日", "一", "二", "三", "四", "五", "六"],
+                completedCount: 0,
+                activeCount: 0,
+                desCount: 0,
                 chartData: {
                     columns: ['状态', '备注'],
-                    rows: [
-                        {'状态': '完成', '备注': 1},
-                        {'状态': '未完成', '备注': 0.7},
-                        {'状态': '已取消', '备注': 0.79}
-                    ]
+                    rows: [{'状态': '完成', '备注': 0.5},
+                        {'状态': '未完成', '备注': 0.2},
+                        {'状态': '已取消', '备注': 0.3}]
                 },
             }
         },
@@ -65,16 +67,40 @@
         },
         methods: {
             getDataList() {
-                let api = tools.config.apiUrl + 'historyApi'
-                let dataTime = this.Year + '-' + (this.Month+1) + '-' + this.date
+                let api = tools.config.apiUrl + 'diaryApi'
+                let dataTime = this.Year + '-' + (this.Month + 1) + '-' + this.date
                 this.$http.post(api, {
-                    start_time: dataTime,
-                    end_time: '',
+                    date: dataTime,
                 }).then((response) => {
-                    console.log(response)
-                    //this.list=response.todos;
+                    let data = response.data.todo;
+                    console.log(data)
+                    this.list = [];
+                    this.state = [];
+                    data.map((item) => {
+                        this.list.push(item.todo);
+                        this.state.push(item.state);
+                    })
+                    this.count();
+
                 })
+
             },
+            count() {
+                let len = this.state.length;
+                this.state.map((item) => {
+                    if (item == 0) {
+                        this.completedCount += 1;
+                    } else if (item == 1) {
+                        this.activeCount += 1;
+                    } else {
+                        this.desCount += 1
+                    }
+                })
+                this.chartData.rows = [{'状态': '完成', '备注': this.completedCount / len},
+                    {'状态': '未完成', '备注': this.activeCount / len},
+                    {'状态': '已取消', '备注': this.desCount / len}]
+            },
+
             handleDayClick(item) {
                 if (item.type === 'normal') {
                     this.date = Number(item.content)
@@ -101,7 +127,6 @@
                         return day - 1;
                     }
                 })
-                console.log(addDaysFromPreMonth)
 
 
                 let total_calendar_list = new Array(12).fill([]).map((month, monthIndex) => {
@@ -190,7 +215,7 @@
     }
 
     .item {
-        padding: 14px;
+        padding: 5px;
     }
 
     .box-card {
@@ -301,7 +326,7 @@
 
     .main__block-today {
         transition: 0.5s all;
-        background-color:  #7f8fa4;
+        background-color: #7f8fa4;
         opacity: 0.6;
         box-shadow: 0 2px 6px rgba(171, 171, 171, 0.5);
     }
