@@ -6,6 +6,12 @@
                 <img :src="item.src" width="750px" height="450px"/>
             </el-carousel-item>
         </el-carousel>
+        <div class="icon">
+            <el-button type="info" style="opacity: 0.5" @click="openFile()">
+                <a href="https://www.wjx.cn/jq/39328343.aspx">用户体验调查</a>
+                <!--用户体验调查-->
+            </el-button>
+        </div>
     </div>
 </template>
 
@@ -17,6 +23,11 @@
         data() {
             return {
                 aboutApp: imgs.images
+            }
+        },
+        methods: {
+            openFile() {
+                window.localtion.href = 'https://www.wjx.cn/jq/39328343.aspx'
             }
         }
     }
@@ -33,8 +44,7 @@
         width: 100%;
         font: 30px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 100;
-        //color: #565656;
-        color: rgba(175, 47, 47, 0.5);
+    //color: #565656; color: rgba(175, 47, 47, 0.5);
         -webkit-text-rendering: optimizeLegibility;
         -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
@@ -65,5 +75,16 @@
 
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
+    }
+
+    .icon {
+        position: absolute;
+        left: 78%;
+        top: 87%;
+    }
+
+    .icon a{
+        color: black;
+        text-decoration: none;
     }
 </style>
