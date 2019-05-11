@@ -28,11 +28,13 @@
     }
 
     .aboutTitle {
+        margin-top: 30px;
         text-align: center;
         width: 100%;
-        font-size: 30px;
+        font: 30px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 100;
-        color: #565656;
+        //color: #565656;
+        color: rgba(175, 47, 47, 0.5);
         -webkit-text-rendering: optimizeLegibility;
         -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
@@ -46,7 +48,7 @@
         width: 750px;
         height: 450px;
         border-radius: 15px;
-        left: 50px;
+        left: 80px;
     }
 
     .el-carousel__item img {

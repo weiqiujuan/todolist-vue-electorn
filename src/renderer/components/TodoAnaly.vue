@@ -4,11 +4,11 @@
             <el-col :span="14">
                 <el-button @click="changeType" type="info" style="opacity: 0.5">切换图表类型</el-button>
                 <ve-chart :data="chartData" :settings="chartSettings" width="500px"></ve-chart>
-                <p style="text-align: center">todos任务量完成趋势图</p>
+                <p style="text-align: center">todos任务量趋势图</p>
             </el-col>
             <el-col :span="10">
                 <ve-pie :data="pieChartData" :settings="pieChartSettings"></ve-pie>
-                <p style="text-align: center">todos任务量完成百分比</p>
+                <p style="text-align: center">todos任务完成状态百分比</p>
             </el-col>
         </el-row>
         <div class="icon">
