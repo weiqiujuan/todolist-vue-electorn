@@ -17,10 +17,17 @@
         <div class="historylist">
             <el-timeline>
                 <el-timeline-item placement="top" v-for="(activity, index) in activities"
-                                  :timestamp="activity.timestamp" :key="index">
+                                  :timestamp="activity.date" :key="index">
                     <el-card style="opacity: 0.7">
                         <ol class="content-item">
-                            <li v-for="(item,index) in activity.content" :key="index">{{item}}</li>
+                            <li v-for="(item,index) in activity.todo" :key="index">
+                                {{item}}
+                            </li>
+                        </ol>
+                        <ol class="content-remarks">
+                            <li v-for="(remark,index) in activity.remarks" :key="index">
+                                <el-button type="info" size="mini" plain>{{remark}}</el-button>
+                            </li>
                         </ol>
                     </el-card>
                 </el-timeline-item>
@@ -67,15 +74,17 @@
                 valueTime: '',
 
                 activities: [{
-                    content: ['vue', 'react', '2018-10-30', 'vue', 'react'],
-                    timestamp: '2018-04-11',
-                    remarks: [],
+                    todo: ['vue', 'react', 'vue', 'react'],
+                    date: '2018-04-11',
+                    remarks: ['完成', '未完成', '完成', '完成'],
                 }, {
-                    content: ['2018-04-12 ', 'todos'],
-                    timestamp: '2018-04-10',
+                    todo: ['2018-04-12 ', 'todos'],
+                    date: '2018-04-10',
+                    remarks: ['完成', '未完成']
                 }, {
-                    content: [' 论文大纲', 'todos'],
-                    timestamp: '2018-04-09',
+                    todo: [' 论文大纲', 'todos'],
+                    date: '2018-04-09',
+                    remarks: ['完成', '未完成']
                 }]
             }
         },
@@ -85,22 +94,43 @@
                 if (!time) {
                     alert('请选择或输入所要查询的时间');
                 }
-                let start_time = time[0];
-                let end_time = time[1];
+                let startTime = time[0];
+                let endTime = time[1];
 
-                console.log(start_time, end_time)
+                console.log(startTime, endTime)
 
                 let api = tools.config.apiUrl + 'historyApi'
 
-                this.$http.post(api,  {
-                    start_time: start_time,
-                    end_time: end_time,
+                this.$http.post(api, {
+                    startTime: startTime,
+                    endTime: endTime,
                 }).then((response) => {
-                    console.log(response)
-                    /*this.activities.timestamp = response.date;
-                    this.activities.content = response.todos;*/
+                    let data = [];
+                    (response.data).map(item => {
+                        let itemTodo = item.todo;
+                        let todoData = [];
+                        let todoState = [];
+                        itemTodo.map(item => {
+                            todoData.push(item.todo)
+                            if (parseInt(item.state) === 1) {
+                                item.state = '未完成'
+                            } else if (parseInt(item.state) === 0) {
+                                item.state = '已完成'
+                            } else {
+                                item.state = '已取消'
+                            }
+                            todoState.push(item.state)
+                        });
+                        let dayData = {
+                            date: item.date,
+                            todo: todoData,
+                            remarks: todoState,
+                        }
+                        data.push(dayData)
+                    })
+                    console.log(data)
+                    this.activities = data
                 })
-
             }
         }
     }
@@ -121,7 +151,20 @@
     }
 
     .content-item {
-        margin: 0 20px;
-        line-height: 25px;
+        margin: 0 15px;
+        line-height: 35px;
+        float: left;
+    }
+
+    .content-remarks {
+        list-style-type: none;
+        margin: 0 10px;
+        clear: right;
+        position: absolute;
+        left: 80%;
+    }
+
+    .content-remarks li {
+        padding: 3px 5px;
     }
 </style>

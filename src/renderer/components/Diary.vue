@@ -29,7 +29,6 @@
                     :settings="chartSettings"></ve-pie>
 
         </div>
-
     </div>
 </template>
 
@@ -48,7 +47,7 @@
                 list: ['vue', 'react', 'electron'],
                 state: [0, 1, 2],
                 Year: new Date().getFullYear(),
-                Month: new Date().getMonth(),
+                Month: new Date().getMonth() ,
                 date: new Date().getDate(),
                 calendarHeader: ["日", "一", "二", "三", "四", "五", "六"],
                 completedCount: 0,
@@ -68,7 +67,12 @@
         methods: {
             getDataList() {
                 let api = tools.config.apiUrl + 'diaryApi'
-                let dataTime = this.Year + '-' + (this.Month + 1) + '-' + this.date
+                let month = this.Month+1;
+                month = month < 9 ? ('0' + month) : month;
+                let date = this.date;
+                date = date < 10 ? ('0' + date) : date;
+                let dataTime = this.Year + '-' + month + '-' + date;
+                console.log(dataTime)
                 this.$http.post(api, {
                     date: dataTime,
                 }).then((response) => {
@@ -124,7 +128,7 @@
                     if (day === 0) {
                         return 6;
                     } else {
-                        return day - 1;
+                        return day-1;
                     }
                 })
 
@@ -160,7 +164,6 @@
                                 content: ++j,
                                 type: "next"
                             };
-
                             monthDate.push(obj);
                         }
                     } else {
