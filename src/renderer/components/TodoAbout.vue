@@ -8,8 +8,8 @@
         </el-carousel>
         <div class="icon">
             <el-button type="info" style="opacity: 0.5" @click="openFile()">
-                <a href="https://www.wjx.cn/jq/39328343.aspx">用户体验调查</a>
-                <!--用户体验调查-->
+                <!--<a href="https://www.wjx.cn/jq/39328343.aspx">用户体验调查</a>-->
+                用户体验调查
             </el-button>
         </div>
     </div>
@@ -17,6 +17,7 @@
 
 <script>
     import imgs from '../../../static/json/json.json'
+    import {shell} from 'electron'
 
     export default {
         name: "todoAbout",
@@ -27,7 +28,7 @@
         },
         methods: {
             openFile() {
-                window.localtion.href = 'https://www.wjx.cn/jq/39328343.aspx'
+                shell.openExternal('https://www.wjx.cn/jq/39328343.aspx')
             }
         }
     }
@@ -44,8 +45,7 @@
         width: 100%;
         font: 30px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 100;
-    //color: #565656; color: rgba(175, 47, 47, 0.5);
-        -webkit-text-rendering: optimizeLegibility;
+    //color: #565656; color: rgba(175, 47, 47, 0.5); -webkit-text-rendering: optimizeLegibility;
         -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
     }
@@ -83,7 +83,7 @@
         top: 87%;
     }
 
-    .icon a{
+    .icon a {
         color: black;
         text-decoration: none;
     }
