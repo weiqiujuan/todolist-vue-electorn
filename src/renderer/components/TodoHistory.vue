@@ -74,17 +74,17 @@
                 valueTime: '',
 
                 activities: [{
-                    todo: ['vue', 'react', 'vue', 'react'],
-                    date: '2018-04-11',
-                    remarks: ['完成', '未完成', '完成', '完成'],
+                    todo: ['react第三章学习', 'react项目重构', 'react视屏查找', '参加聚会'],
+                    date: '2018-06-01',
+                    remarks: ['完成', '未完成', '未完成', '已取消'],
                 }, {
-                    todo: ['2018-04-12 ', 'todos'],
-                    date: '2018-04-10',
-                    remarks: ['完成', '未完成']
+                    todo: ["拍照", "解决冲突", "react第四章学习"],
+                    date: '2018-06-02',
+                    remarks: ['未完成', '完成', '完成']
                 }, {
-                    todo: [' 论文大纲', 'todos'],
-                    date: '2018-04-09',
-                    remarks: ['完成', '未完成']
+                    todo: ["router学习", "修图片", "还书", "react学习"],
+                    date: '2018-06-03',
+                    remarks: ['已取消', '完成', '已取消', '完成']
                 }]
             }
         },
