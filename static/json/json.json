@@ -1,31 +1,31 @@
 {
   "images": [
     {
-      "src": "/static/slider/img1.png"
+      "src": "/static/slider/img1.jpg"
     },
     {
-      "src": "/static/slider/img2.png"
+      "src": "/static/slider/img2.jpg"
     },
     {
-      "src": "/static/slider/img4.png"
+      "src": "/static/slider/img4.jpg"
     },
     {
-      "src": "/static/slider/img08.png"
+      "src": "/static/slider/img08.jpg"
     },
     {
-      "src": "/static/slider/img09.png"
+      "src": "/static/slider/img09.jpg"
     },
     {
-      "src": "/static/slider/img11.png"
+      "src": "/static/slider/img11.jpg"
     },
     {
-      "src": "/static/slider/img12.png"
+      "src": "/static/slider/img12.jpg"
     },
     {
-      "src": "/static/slider/img16.png"
+      "src": "/static/slider/img16.jpg"
     },
     {
-      "src": "/static/slider/img17.png"
+      "src": "/static/slider/img17.jpg"
     }
   ]
 }
