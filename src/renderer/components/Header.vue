@@ -8,7 +8,7 @@
             <el-breadcrumb-item>
                 <a @click="logout">注销</a>
             </el-breadcrumb-item>
-            <el-breadcrumb-item><a>关于我</a></el-breadcrumb-item>
+            <el-breadcrumb-item @click='userState'><a>关于我</a></el-breadcrumb-item>
         </el-breadcrumb>
     </div>
 
@@ -34,7 +34,7 @@
             logout() {
                 this.$http.get(tools.config.apiUrl + 'logout')
                     .then((response) => {
-                        console.log(response)
+                        //console.log(response)
                         if (response.ret_code === 2) {
                             this.$message({
                                 message: response.ret_msg,
@@ -51,6 +51,9 @@
                     }).catch(function (error) {
                     console.log(error)
                 })
+            },
+            userState() {
+                eventBus.$emit('userState', this.login)
             },
             beforeDestroy() {
                 eventBus.$off('username')
