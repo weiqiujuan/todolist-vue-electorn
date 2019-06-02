@@ -69,21 +69,24 @@
                             start.setTime(start.getTime() - 3600 * 1000 * 24);
                             picker.$emit('pick', [start, end]);
                         }
-                    }]
+                    }],
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    }
                 },
                 valueTime: '',
 
                 activities: [{
                     todo: ['react第三章学习', 'react项目重构', 'react视屏查找', '参加聚会'],
-                    date: '2018-06-01',
+                    date: '2018-06-02',
                     remarks: ['完成', '未完成', '未完成', '已取消'],
                 }, {
                     todo: ["拍照", "解决冲突", "react第四章学习"],
-                    date: '2018-06-02',
+                    date: '2018-06-01',
                     remarks: ['未完成', '完成', '完成']
                 }, {
                     todo: ["router学习", "修图片", "还书", "react学习"],
-                    date: '2018-06-03',
+                    date: '2018-05-31',
                     remarks: ['已取消', '完成', '已取消', '完成']
                 }]
             }

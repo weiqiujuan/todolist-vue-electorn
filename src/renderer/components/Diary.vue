@@ -34,6 +34,7 @@
 
 <script>
     import tools from '../model/tools.js';
+    import {eventBus} from "../../eventBus"; 
 
     export default {
         name: "diary",
@@ -60,6 +61,15 @@
                         {'状态': '已取消', '备注': 0.3}]
                 },
             }
+        },
+        created() {
+             eventBus.$on('userState', (params) => {
+                if(params=='登录'){
+                    console.log(params)
+                    alert('操作此模块请登录')
+                    this.$router.push({name:'home'})
+                }
+            })
         },
         mounted() {
             this.getDataList();

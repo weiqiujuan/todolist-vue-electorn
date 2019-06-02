@@ -8,7 +8,7 @@
                     <el-input v-model="userinfo.username" placeholder="用户名：admin"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="userinfo.password" placeholder="密码：123456"></el-input>
+                    <el-input v-model="userinfo.password" placeholder="密码：11111"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">

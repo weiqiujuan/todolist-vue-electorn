@@ -67,11 +67,11 @@
 
                 let year = new Date().getFullYear();
                 let month = new Date().getMonth() + 1;
-                // let date = new Date().getDate()
+                let date = new Date().getDate()
                 let startTime, endTime;
                 month = month < 10 ? ('0' + month) : month;
 
-                let date = 31;
+                //let date = 31;
                 if (date < 7) {
                     let startMonth = month - 1;
                     let startDate = daysMonth[month - 1] - Math.abs(date - 5);
