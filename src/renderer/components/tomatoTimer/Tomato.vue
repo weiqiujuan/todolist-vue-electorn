@@ -1,11 +1,11 @@
 <template>
     <div style="height: auto;">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName">
             <el-tab-pane label="番茄计时" name="work">
                 <CountDown/>
             </el-tab-pane>
             <el-tab-pane label="工作记录" name="history">
-                <history/>
+                <History/>
             </el-tab-pane>
             <el-tab-pane label="时间设置" name="setting">
                 <Setting/>
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-    import CountDown from './countDown';
-    import History from './history';
-    import Setting from './setting';
+    import CountDown from './CountDown';
+    import History from './History';
+    import Setting from './Setting';
 
     let setting;
     export default {
@@ -32,13 +32,8 @@
                 activeName: 'work'
             };
         },
-        methods: {
-            handleClick(tab, event) {
-                console.log(tab, event);
-            }
-        },
-        computed:{
-            setting:function(){
+        computed: {
+            setting: function () {
                 setting = this.$service.tomato.getSetting();
                 return setting;
             }

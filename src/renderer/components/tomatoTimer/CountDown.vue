@@ -2,7 +2,7 @@
     <div class="tomato-block">
         <p class="title">tomato timer</p>
         <div class="circle">
-            <i-circle v-bind:percent="percent" :size=360>
+            <i-circle v-bind:percent="percent" :size=360 class="circle-png">
                 <span class="circle-time">{{timeStr}}</span>
             </i-circle>
             <el-input v-model="content" type="textarea" placeholder="请输入您要完成的任务..."/>
@@ -16,10 +16,10 @@
 </template>
 <script>
     import {eventBus} from "../../../eventBus";
-    import tools from '../../model/tools.js';
+    import {getData} from "../../utils/api";
 
     export default {
-        name: 'countDown',
+        name: 'CountDown',
         data() {
             return {
                 percent: 0,
@@ -30,7 +30,9 @@
                 restDuration: 5,
                 startTime: null,
                 endTime: null,
-                state: null
+                state: null,
+                countData: {},
+                getData
             };
         },
         created() {
@@ -90,44 +92,30 @@
                 }, 1000);
             },
             secondToTime(time) {
-                let hour = Math.floor(time / 3600),
-                    minute = Math.floor(time / 60) % 60,
+                let minute = Math.floor(time / 60) % 60,
                     second = time % 60;
                 return (minute >= 10 ? minute : '0' + minute)
                     + ":" + (second >= 10 ? second : '0' + second);
             },
             loadData() {
-               /* let data = {}
-                data = {
+                this.countData = {
                     startTime: this.startTime,
                     endTime: this.endTime,
                     content: this.content,
                     state: this.state
-                }*/
-
-                let api = tools.config.apiUrl + 'saveTomatoData'
-
-                this.$http.post(api,  {
-                    startTime: this.startTime,
-                    endTime: this.endTime,
-                    content: this.content,
-                    state: this.state
-                }).then((response) => {
-                    console.log(response)
-                })
+                }
+                this.getData('saveTomatoData', this.countData)
             }
         }
     }
 </script>
-<style>
+<style lang="scss" scoped>
     .tomato-block {
-        margin: 0px auto;
-        width: 400px;
+        margin: 0 auto;
     }
 
     .tomato-block .title {
         text-align: center;
-        margin-right: 50px;
         font-size: 25px;
         font-weight: bold;
         line-height: 50px;
@@ -145,11 +133,17 @@
     .tomato-block .btn-group button:first-child {
         margin-left: -50px;
     }
-
+    .tomato-block .circle{
+        position: relative;
+        margin-left: 50%;
+        margin-right: 180px;
+    }
     .tomato-block .circle-time {
         font-size: 120px;
         position: absolute;
         top: 43%;
-        left: 34%;
+    }
+    .tomato-block .circle-png{
+
     }
 </style>

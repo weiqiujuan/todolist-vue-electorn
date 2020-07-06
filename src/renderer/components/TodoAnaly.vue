@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import tools from '../model/tools.js';
+    import {getData} from "../utils/api";
 
     export default {
         name: "todoAnaly",
@@ -53,25 +53,49 @@
                         {'状态': '已取消', '备注': 0.3}]
                 },
                 pieChartSettings: {dataType: 'percent'},
+                getData,
             }
         },
         beforeMount() {
             this.getChartData()
         },
         methods: {
+            historyApiCb(res) {
+                let data = [], len = 0, complete = 0, actived = 0, des = 0;
+                (res.data).map(item => {
+                    let itemTodo = item.todo;
+                    len += itemTodo.length;
+                    let itemData = {
+                        'Date': item.date,
+                        'Todos': itemTodo.length
+                    }
+                    data.push(itemData);
+                    itemTodo.map(item => {
+                        let eItem = item.state;
+                        if (parseInt(eItem) === 1) {
+                            complete++
+                        } else if (parseInt(eItem) === 0) {
+                            actived++
+                        } else des++
+                    });
+                })
+                console.log(actived, complete, des, len)
+                this.chartData.rows = data
+                this.pieChartData.rows = [{'状态': '已完成', '备注': complete / len},
+                    {'状态': '未完成', '备注': actived / len},
+                    {'状态': '已取消', '备注': des / len}]
+            },
             getChartData() {
                 let daysMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                 if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
                     daysMonth[1] = 29;
                 }
-
                 let year = new Date().getFullYear();
                 let month = new Date().getMonth() + 1;
                 let date = new Date().getDate()
                 let startTime, endTime;
                 month = month < 10 ? ('0' + month) : month;
 
-                //let date = 31;
                 if (date < 7) {
                     let startMonth = month - 1;
                     let startDate = daysMonth[month - 1] - Math.abs(date - 5);
@@ -89,50 +113,13 @@
                     endTime = year + '-' + month + '-' + date;
                 }
 
-                let api = tools.config.apiUrl + 'historyApi'
-
-                console.log(startTime, endTime)
-
-                this.$http.post(api, {
+                let postData = {
                     startTime: startTime,
                     endTime: endTime,
-                }).then((response) => {
-                    let data = [];
-
-                    let len = 0;
-                    let complete = 0;
-                    let actived = 0;
-                    let des = 0;
-
-                    //console.log(response.data)
-                    (response.data).map(item => {
-                        let itemTodo = item.todo;
-                        //let itemState=item.state;
-                        len += itemTodo.length;
-                        let itemData = {
-                            'Date': item.date,
-                            'Todos': itemTodo.length
-                        }
-                        data.push(itemData);
-                        itemTodo.map(item => {
-                            let eItem = item.state;
-                            if (parseInt(eItem) === 1) {
-                                complete++
-                            } else if (parseInt(eItem) === 0) {
-                                actived++
-                            } else des++
-                        });
-                    })
-                    console.log(actived, complete, des, len)
-                    this.chartData.rows = data
-                    this.pieChartData.rows = [{'状态': '已完成', '备注': complete / len},
-                        {'状态': '未完成', '备注': actived / len},
-                        {'状态': '已取消', '备注': des / len}]
-                })
-
+                }
+                this.getData('historyApi', postData, this.historyApiCb)
             },
             changeType: function () {
-                //this.getChartData()
                 this.index++
                 if (this.index >= this.typeArr.length) {
                     this.index = 0

@@ -5,14 +5,14 @@
                    :center="true" :visible.sync="dialogFormVisible">
             <el-form>
                 <el-form-item>
-                    <el-input v-model="userinfo.username" placeholder="用户名：admin"></el-input>
+                    <el-input v-model="userInfo.username" placeholder="用户名：admin"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-input v-model="userinfo.password" placeholder="密码：11111"></el-input>
+                    <el-input v-model="userInfo.password" placeholder="密码：11111"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button style="width:80%" type="primary" @click="doLogin()">确 定</el-button>
+                <el-button type="primary" @click="doLogin()">确 定</el-button>
             </div>
         </el-dialog>
         <todo-app/>
@@ -20,17 +20,20 @@
 </template>
 
 <script>
-    import tools from '../model/tools';
     import {eventBus} from "../../eventBus";
-    import todoApp from './todo/todoApp';
+    import todoApp from './todo/TodoApp';
     import store from '../store/todo/store';
+    import {getData} from '../utils/api'
+    import {message} from '../utils/message'
 
     export default {
-        name: "sign",
+        name: "Sign",
         data() {
             return {
                 dialogFormVisible: true,
-                userinfo: {},
+                userInfo: {},
+                getData,
+                message
             }
         },
         store,
@@ -39,10 +42,10 @@
         },
         //渲染之前
        /* beforeMount() {
-            tools.storage.remove('userinfo');
+            tools.storage.remove('userInfo');
             //判断是否登陆
-            let userinfo = tools.storage.get('userinfo')
-            if (userinfo) {
+            let userInfo = tools.storage.get('userInfo')
+            if (userInfo) {
                 this.dialogFormVisible = true;
             } else {
                 this.dialogFormVisible = false;
@@ -50,38 +53,25 @@
         },*/
         methods: {
             doLogin() {
-                if (this.userinfo.username && this.userinfo.password) {
-                    this.$http.post(tools.config.apiUrl + 'login', {
-                        username: this.userinfo.username,
-                        password: this.userinfo.password
-                    }).then((response) => {
-                        response = response.data;
-                        console.log(response)
-                        if (response.ret_code===0) {
-                            this.dialogFormVisible = false;
-                            this.$message({
-                                message:'登录成功',
-                                type:'info'
-                            })
-                            this.todo();
-                        } else {
-                            this.$message({
-                                message: response.ret_msg,
-                                type: 'warning'
-                            })
-                        }
-                    }).catch(function (error) {
-                        console.log(error)
-                    })
+                if (this.userInfo.username && this.userInfo.password) {
+                    this.getData('login',this.userInfo,this.dataCb);
                 } else {
-                    this.$message({
-                        message: '用户密码不能为空',
-                        type: 'warning'
-                    })
+                    this.message('用户名或密码不能为空','warning')
+                }
+            },
+            dataCb(res){
+                res = res.data;
+                console.log(res)
+                if (res.ret_code===0) {
+                    this.dialogFormVisible = false;
+                    this.message(res.ret_msg,'info')
+                    this.todo();
+                } else {
+                    this.message(res.ret_msg,'warning')
                 }
             },
             todo() {
-                eventBus.$emit('username', this.userinfo.username)
+                eventBus.$emit('username', this.userInfo.username)
             }
         }
     }

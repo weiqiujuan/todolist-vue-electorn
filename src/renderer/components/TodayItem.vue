@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import tomato from './tomatoTimer/tomato'
+    import tomato from './tomatoTimer/Tomato'
 
     export default {
         name: "today-item",

@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueHighcharts from 'vue-highcharts';
 import VueSocketIO from 'vue-socket.io'
 import VueEcharts from 'v-charts'
+import './assets/reset.css'
 
 Vue.use(ElementUI);
 Vue.use(VueHighcharts);

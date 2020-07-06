@@ -37,37 +37,29 @@
 </template>
 
 <script>
-    import tools from '../model/tools.js';
+    import {getData} from "../utils/api";
 
     export default {
         name: "todoHistory",
         components: {},
         data() {
             return {
+                getData,
                 pickerOptions2: {
                     shortcuts: [{
                         text: '最近一天',
                         onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
+                            this.pickTime(picker, 3600 * 1000 * 24 * 7)
                         }
                     }, {
                         text: '最近三天',
                         onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 3);
-                            picker.$emit('pick', [start, end]);
+                            this.pickTime(picker, 3600 * 1000 * 24 * 7)
                         }
                     }, {
                         text: '最近一周',
                         onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24);
-                            picker.$emit('pick', [start, end]);
+                            this.pickTime(picker, 3600 * 1000 * 24)
                         }
                     }],
                     disabledDate(time) {
@@ -75,7 +67,6 @@
                     }
                 },
                 valueTime: '',
-
                 activities: [{
                     todo: ['react第三章学习', 'react项目重构', 'react视屏查找', '参加聚会'],
                     date: '2018-06-02',
@@ -92,48 +83,50 @@
             }
         },
         methods: {
+            pickTime(picker, time) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - time);
+                picker.$emit('pick', [start, end]);
+            },
+            getDataCb(res) {
+                let data = [];
+                (res.data).map(item => {
+                    let itemTodo = item.todo;
+                    let todoData = [], todoState = [];
+                    itemTodo.map(item => {
+                        todoData.push(item.todo)
+                        switch (parseInt(item.state)) {
+                            case 1:
+                                item.state = '未完成';
+                                break;
+                            case 2:
+                                item.state = '已完成'
+                                break;
+                            default:
+                                item.state = '已取消'
+                        }
+                        todoState.push(item.state)
+                    });
+                    let dayData = {
+                        date: item.date,
+                        todo: todoData,
+                        remarks: todoState,
+                    }
+                    data.push(dayData)
+                })
+                this.activities = data
+            },
             inSearch() {
                 let time = this.valueTime;
                 if (!time) {
                     alert('请选择或输入所要查询的时间');
                 }
-                let startTime = time[0];
-                let endTime = time[1];
-
-                console.log(startTime, endTime)
-
-                let api = tools.config.apiUrl + 'historyApi'
-
-                this.$http.post(api, {
-                    startTime: startTime,
-                    endTime: endTime,
-                }).then((response) => {
-                    let data = [];
-                    (response.data).map(item => {
-                        let itemTodo = item.todo;
-                        let todoData = [];
-                        let todoState = [];
-                        itemTodo.map(item => {
-                            todoData.push(item.todo)
-                            if (parseInt(item.state) === 1) {
-                                item.state = '未完成'
-                            } else if (parseInt(item.state) === 0) {
-                                item.state = '已完成'
-                            } else {
-                                item.state = '已取消'
-                            }
-                            todoState.push(item.state)
-                        });
-                        let dayData = {
-                            date: item.date,
-                            todo: todoData,
-                            remarks: todoState,
-                        }
-                        data.push(dayData)
-                    })
-                    console.log(data)
-                    this.activities = data
-                })
+                let postData = {
+                    startTime: time[0],
+                    endTime: time[1],
+                }
+                this.getData('historyApi', postData, this.getDataCb)
             }
         }
     }
@@ -146,7 +139,6 @@
     }
 
     .demonstration {
-        /* font-family: arial,"Hiragino Sans GB","Microsoft Yahei",sans-serif;*/
         font-size: 20px;
         line-height: 30px;
         color: gray;

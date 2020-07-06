@@ -61,7 +61,7 @@
     import tools from '../../model/tools.js';
 
     export default {
-        name: 'history',
+        name: 'History',
         data() {
             return {
                 tableData: [{
@@ -92,8 +92,6 @@
         },
         methods: {
             resetDateFilter() {
-               /* let api = tools.config.apiUrl + 'deleteTomatoData'
-                this.$http.get(api)*/
                 this.loadData()
             },
             loadData() {
@@ -115,12 +113,10 @@
                 rows.splice(index, 1);
             },
             handleSizeChange(val){
-                console.log(`每页${val}条`);
                 this.currentPage=1;
                 this.pageSize=val;
             },
             handleCurrentChange(val){
-                console.log(`当前页：${val}`);
                 this.currentPage=val;
             }
         }

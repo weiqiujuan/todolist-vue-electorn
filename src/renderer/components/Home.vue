@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <todoApp/>
-    </div>
+    <TodoApp/>
 </template>
 
 <script>
-    import todoApp from './todo/todoApp';
+    import TodoApp from './todo/TodoApp';
     import store from '../store/todo/store';
 
     export default {
@@ -15,7 +13,7 @@
         },
         store,
         components: {
-            todoApp
+            TodoApp
         }
     }
 

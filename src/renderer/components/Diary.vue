@@ -33,8 +33,8 @@
 </template>
 
 <script>
-    import tools from '../model/tools.js';
-    import {eventBus} from "../../eventBus"; 
+    import {eventBus} from "../../eventBus";
+    import {getData} from '../utils/api'
 
     export default {
         name: "diary",
@@ -48,7 +48,7 @@
                 list: ['vue', 'react', 'electron'],
                 state: [0, 1, 2],
                 Year: new Date().getFullYear(),
-                Month: new Date().getMonth() ,
+                Month: new Date().getMonth(),
                 date: new Date().getDate(),
                 calendarHeader: ["日", "一", "二", "三", "四", "五", "六"],
                 completedCount: 0,
@@ -60,14 +60,15 @@
                         {'状态': '未完成', '备注': 0.2},
                         {'状态': '已取消', '备注': 0.3}]
                 },
+                getData,
             }
         },
         created() {
-             eventBus.$on('userState', (params) => {
-                if(params=='登录'){
+            eventBus.$on('userState', (params) => {
+                if (params === '登录') {
                     console.log(params)
                     alert('操作此模块请登录')
-                    this.$router.push({name:'home'})
+                    this.$router.push({name: 'home'})
                 }
             })
         },
@@ -76,35 +77,29 @@
         },
         methods: {
             getDataList() {
-                let api = tools.config.apiUrl + 'diaryApi'
-                let month = this.Month+1;
+                let month = this.Month + 1;
                 month = month < 9 ? ('0' + month) : month;
                 let date = this.date;
                 date = date < 10 ? ('0' + date) : date;
                 let dataTime = this.Year + '-' + month + '-' + date;
-                console.log(dataTime)
-                this.$http.post(api, {
-                    date: dataTime,
-                }).then((response) => {
-                    let data = response.data.todo;
-                    console.log(data)
-                    this.list = [];
-                    this.state = [];
-                    data.map((item) => {
-                        this.list.push(item.todo);
-                        this.state.push(item.state);
-                    })
-                    this.count();
-
+                this.getData('diaryApi',{date:dataTime},this.getDiaryData)
+            },
+            getDiaryData(res){
+                let data = res.data.todo;
+                this.list = [];
+                this.state = [];
+                data.map((item) => {
+                    this.list.push(item.todo);
+                    this.state.push(item.state);
                 })
-
+                this.count();
             },
             count() {
                 let len = this.state.length;
                 this.state.map((item) => {
-                    if (item == 0) {
+                    if (item === 0) {
                         this.completedCount += 1;
-                    } else if (item == 1) {
+                    } else if (item === 1) {
                         this.activeCount += 1;
                     } else {
                         this.desCount += 1
@@ -114,7 +109,6 @@
                     {'状态': '未完成', '备注': this.activeCount / len},
                     {'状态': '已取消', '备注': this.desCount / len}]
             },
-
             handleDayClick(item) {
                 if (item.type === 'normal') {
                     this.date = Number(item.content)
@@ -127,7 +121,6 @@
                 if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
                     daysMonth[1] = 29;
                 }
-
                 //前一个月
                 let daysPreMonth = [].concat(daysMonth)
                 daysPreMonth.unshift(daysPreMonth.pop())
@@ -138,10 +131,9 @@
                     if (day === 0) {
                         return 6;
                     } else {
-                        return day-1;
+                        return day - 1;
                     }
                 })
-
 
                 let total_calendar_list = new Array(12).fill([]).map((month, monthIndex) => {
                     let addDays = addDaysFromPreMonth[monthIndex] + 1,
@@ -254,7 +246,7 @@
     .calendar__header {
         color: #2c3135;
         font-size: 18px;
-        width: 403.2px;
+        width: 403px;
         display: flex;
         align-self: center;
         justify-content: space-between;

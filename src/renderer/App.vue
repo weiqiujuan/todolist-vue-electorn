@@ -1,23 +1,18 @@
 <template>
-    <div style="width: auto" class="todoApp">
-        <el-container>
-            <el-aside style="position: relative;left:0;padding-top: 8px;opacity: 0.6">
-                <Menu/>
-            </el-aside>
-            <el-container>
-                <el-header style="opacity: 0.7;height:35px; border-bottom: 1px solid rgb(238,238,238)">
-                    <Header/>
-                </el-header>
-                <el-main style=" padding: 5px 10px;">
-                    <router-view></router-view>
-                </el-main>
-            </el-container>
-        </el-container>
+    <div class="todoApp">
+        <div class="aside">
+            <Menu/>
+        </div>
+        <div class="container">
+            <Header/>
+            <div class="main">
+                <router-view></router-view>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-
     import Menu from './components/Menu'
     import Header from './components/Header'
 
@@ -66,45 +61,20 @@
 
 
 <style lang="scss">
-    * {
-        margin: 0;
-        padding: 0;
-
-    }
-    .todoApp{
+    .todoApp {
+        width: 100%;
+        height: 100%;
+        display: flex;
         background-image: url("../../static/leaves.png");
-        width: 1335px;
-        height: 735px;
         background-size: cover;
         z-index: 111;
     }
 
-    .el-aside {
-        width: 22% !important;
-        //background: #eee;
-        a {
-            color: #333;
-            text-decoration: none;
-        }
-        .el-menu {
-         //  background: #eee;
-        }
+    .aside{
+        flex: 1;
     }
-
-    .el-container {
-        // padding:10px;
-        width: 100%;
+    .container {
+        flex: 5;
     }
-
-    .main-content {
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 10px;
-    }
-
-    .content {
-        width: 100%;
-    }
-
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="header">
-        <p style="float: left;text-align: center;padding-top:10px;font-size:14px;">TodoList桌面应用</p>
-        <el-breadcrumb separator="|" class="breadcrumb">
+        <p class="appName">TodoList桌面应用</p>
+        <el-breadcrumb separator="|" class="header__tools">
             <el-breadcrumb-item>
                 <router-link to='sign' v-model="login">{{login}}</router-link>
             </el-breadcrumb-item>
@@ -34,7 +34,6 @@
             logout() {
                 this.$http.get(tools.config.apiUrl + 'logout')
                     .then((response) => {
-                        //console.log(response)
                         if (response.ret_code === 2) {
                             this.$message({
                                 message: response.ret_msg,
@@ -46,7 +45,7 @@
                                 message: '退出登录成功',
                                 type: 'info'
                             })
-                            this.$router.push({path:'/home'})
+                            this.$router.push({path: '/home'})
                         }
                     }).catch(function (error) {
                     console.log(error)
@@ -63,14 +62,17 @@
 </script>
 
 <style scoped>
-
     .header {
-        position: relative;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
     }
 
-    .breadcrumb {
-        padding: 10px;
-        position: absolute;
-        right: 10px;
+    .appName {
+
+    }
+
+    .header__tools {
+        margin-top: 10px;
     }
 </style>
