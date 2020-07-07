@@ -43,22 +43,25 @@
                     prop="edit"
                     label="编辑"
                     width="120"
-                    >
+            >
                 <template slot-scope="scope">
-                    <el-button type="danger" icon="el-icon-delete" circle  @click.native.prevent="deleteRow(scope.$index, tableData)"></el-button>
+                    <el-button type="danger" icon="el-icon-delete" circle
+                               @click.native.prevent="deleteRow(scope.$index, tableData)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <div class="block" style="margin-top:15px;margin-left: -5px">
             <el-pagination align='center'
                            @size-change="handleSizeChange"
-                           @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[6,1,10]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                           @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[6,1,10]"
+                           :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+                           :total="tableData.length">
             </el-pagination>
         </div>
     </div>
 </template>
 <script>
-    import tools from '../../model/tools.js';
+    import {getData} from "../../utils/api";
 
     export default {
         name: 'History',
@@ -70,24 +73,25 @@
                     content: '王小虎',
                     state: '完成'
                 }],
-                currentPage:1,
-                total:20,
-                pageSize:6,
+                currentPage: 1,
+                total: 20,
+                pageSize: 6,
+                getData,
             }
         },
         //定时刷新
         mounted() {
-            if(this.timer){
+            if (this.timer) {
                 clearInterval(this.timer)
-            }else{
-                this.timer=setInterval(()=>{
+            } else {
+                this.timer = setInterval(() => {
                     //获取数据
                     this.loadData()
-                },600)
+                }, 600)
             }
         },
         //组件销毁时清除
-        destroyed(){
+        destroyed() {
             clearInterval(this.timer)
         },
         methods: {
@@ -95,9 +99,8 @@
                 this.loadData()
             },
             loadData() {
-                let api = tools.config.apiUrl + 'findTomatoData'
-                this.$http.get(api).then((response) => {
-                    this.tableData = response.data
+                this.getData('findTomatoData', '', (res) => {
+                    this.tableData = res.data
                 })
             },
             clearFilter() {
@@ -112,12 +115,12 @@
             deleteRow(index, rows) {
                 rows.splice(index, 1);
             },
-            handleSizeChange(val){
-                this.currentPage=1;
-                this.pageSize=val;
+            handleSizeChange(val) {
+                this.currentPage = 1;
+                this.pageSize = val;
             },
-            handleCurrentChange(val){
-                this.currentPage=val;
+            handleCurrentChange(val) {
+                this.currentPage = val;
             }
         }
     }

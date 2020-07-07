@@ -4,8 +4,8 @@
             <Menu/>
         </div>
         <div class="container">
-            <Header/>
-            <div class="main">
+            <Header class="container_head"/>
+            <div class="container_main">
                 <router-view></router-view>
             </div>
         </div>
@@ -75,6 +75,10 @@
     }
     .container {
         flex: 5;
+        overflow: scroll;
+        .container_head{
+            position: sticky;
+        }
     }
 
 </style>

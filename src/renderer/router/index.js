@@ -8,17 +8,17 @@ export default new Router({
         {
             path: '/home',
             name: 'home',
-            component: require('@/components/home').default
+            component: require('@/components/Home').default
         },
         {
             path: '/todayItem',
             name: 'todayItem',
-            component: require('@/components/todayItem').default
+            component: require('@/components/TodayItem').default
         },
         {
             path: '/diary',
             name: 'diary',
-            component: require('@/components/diary').default
+            component: require('@/components/Diary').default
         },
         {
             path: '/todoHistory',
@@ -36,9 +36,9 @@ export default new Router({
             component: require('@/components/todoAbout').default
         },
         {
-            path: '/sign',
-            name: 'sign',
-            component: require('@/components/sign').default
+            path: '/Sign',
+            name: 'Sign',
+            component: require('@/components/Sign').default
         },
         {
             path: '*',

@@ -1,13 +1,13 @@
 <template>
     <div class="todoAbout">
-        <p class="aboutTitle">todoList桌面应用介绍</p>
+        <!--        <p class="aboutTitle">todoList桌面应用介绍</p>-->
         <el-carousel indicator-position="outside" height="450px">
             <el-carousel-item v-for="(item,index) in aboutApp" :key="index" class="el-carousel__item">
                 <img :src="item.src" width="750px" height="450px"/>
             </el-carousel-item>
         </el-carousel>
         <div class="icon">
-            <el-button type="info" style="opacity: 0.5" @click="openFile()">
+            <el-button type="info" @click="openFile()">
                 <!--<a href="https://www.wjx.cn/jq/39328343.aspx">用户体验调查</a>-->
                 用户体验调查
             </el-button>
@@ -45,8 +45,6 @@
         width: 100%;
         font: 30px 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 100;
-    //color: #565656; color: rgba(175, 47, 47, 0.5); -webkit-text-rendering: optimizeLegibility;
-        -moz-text-rendering: optimizeLegibility;
         text-rendering: optimizeLegibility;
     }
 
@@ -78,13 +76,8 @@
     }
 
     .icon {
-        position: absolute;
-        left: 78%;
-        top: 87%;
-    }
-
-    .icon a {
-        color: black;
-        text-decoration: none;
+        position: relative;
+        left: 85%;
+        bottom: 20%;
     }
 </style>

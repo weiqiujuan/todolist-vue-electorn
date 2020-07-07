@@ -111,39 +111,38 @@
 </script>
 <style lang="scss" scoped>
     .tomato-block {
-        margin: 0 auto;
-    }
-
-    .tomato-block .title {
-        text-align: center;
-        font-size: 25px;
-        font-weight: bold;
-        line-height: 50px;
-    }
-
-    .tomato-block .btn-group {
-        text-align: center;
-        margin-top: 10px;
-    }
-
-    .tomato-block .btn-group button + button {
-        margin-left: 5px;
-    }
-
-    .tomato-block .btn-group button:first-child {
-        margin-left: -50px;
-    }
-    .tomato-block .circle{
         position: relative;
-        margin-left: 50%;
-        margin-right: 180px;
-    }
-    .tomato-block .circle-time {
-        font-size: 120px;
-        position: absolute;
-        top: 43%;
-    }
-    .tomato-block .circle-png{
+        margin: 0 auto;
 
+        .title {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            line-height: 50px;
+        }
+
+        .btn-group {
+            text-align: center;
+            margin-top: 10px;
+
+            &:first-child {
+                position: relative;
+                left: 50%;
+                transform: translateX(50%);
+            }
+        }
+
+        .circle {
+            position: relative;
+            margin-left: 30%;
+            margin-right: 180px;
+        }
+
+        .circle-time {
+            font-size: 120px;
+            position: absolute;
+            left: 8%;
+            top: 43%;
+        }
     }
 </style>

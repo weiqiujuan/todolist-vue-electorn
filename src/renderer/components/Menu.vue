@@ -11,25 +11,25 @@
                     <i class="el-icon-time"></i>
                     <router-link to="home">todoList</router-link>
                 </el-menu-item>
-                <el-menu-item index="1-2" @click="userState()">
+                <el-menu-item index="1-2" >
                     <i class="el-icon-tickets"></i>
                     <router-link to="todayItem">今日详情</router-link>
                 </el-menu-item>
-                <el-menu-item index="1-3" @click="userState()">
+                <el-menu-item index="1-3">
                     <i class="el-icon-date"></i>
                     <router-link to="diary">日历</router-link>
                 </el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="2" @click="userState()">
+        <el-menu-item index="2" >
             <i class="el-icon-menu"></i>
             <span slot="title"><router-link to="todoHistory">Todo历史</router-link></span>
         </el-menu-item>
-        <el-menu-item index="3" @click="userState()">
+        <el-menu-item index="3">
             <i class="el-icon-document"></i>
             <span slot="title"><router-link to="todoAnaly">Todo分析</router-link></span>
         </el-menu-item>
-        <el-menu-item index="4" @click="userState()">
+        <el-menu-item index="4">
             <i class="el-icon-setting"></i>
             <span slot="title"><router-link to="todoAbout">关于todo</router-link></span>
         </el-menu-item>

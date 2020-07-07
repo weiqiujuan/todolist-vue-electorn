@@ -17,12 +17,16 @@
 <script>
     import tools from '../model/tools';
     import {eventBus} from "../../eventBus";
+    import {getData} from "../utils/api";
+    import {message} from "../utils/message";
 
     export default {
         name: "Header",
         data() {
             return {
                 login: '登录',
+                getData,
+                message,
             }
         },
         created() {
@@ -31,25 +35,18 @@
             })
         },
         methods: {
+            logoutCb(data) {
+                console.log('退出登录',data)
+                if (data.status === 200 && data.data.ret_code) {
+                    this.login = '登录'
+                    this.message(data.data.ret_msg, 'info')
+                    this.$router.push({path: '/home'})
+                } else {
+                    this.message(data.data.ret_msg, 'warning')
+                }
+            },
             logout() {
-                this.$http.get(tools.config.apiUrl + 'logout')
-                    .then((response) => {
-                        if (response.ret_code === 2) {
-                            this.$message({
-                                message: response.ret_msg,
-                                type: 'warning'
-                            })
-                        } else {
-                            this.login = '登录'
-                            this.$message({
-                                message: '退出登录成功',
-                                type: 'info'
-                            })
-                            this.$router.push({path: '/home'})
-                        }
-                    }).catch(function (error) {
-                    console.log(error)
-                })
+                this.getData('logout', '', this.logoutCb)
             },
             userState() {
                 eventBus.$emit('userState', this.login)
@@ -64,6 +61,7 @@
 <style scoped>
     .header {
         margin-top: 10px;
+        padding: 0 10px;
         display: flex;
         justify-content: space-between;
     }

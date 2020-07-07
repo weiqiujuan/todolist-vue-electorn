@@ -2,7 +2,7 @@
     <div class="analyPage">
         <el-row>
             <el-col :span="14">
-                <el-button @click="changeType" type="info" style="opacity: 0.5">切换图表类型</el-button>
+                <el-button @click="changeType" type="info">切换图表类型</el-button>
                 <ve-chart :data="chartData" :settings="chartSettings" width="500px"></ve-chart>
                 <p style="text-align: center">todos任务量趋势图</p>
             </el-col>
@@ -11,13 +11,13 @@
                 <p style="text-align: center">todos任务完成状态百分比</p>
             </el-col>
         </el-row>
-        <div class="icon">
+        <div class="pageLink">
             <el-button-group>
                 <router-link to="todoHistory">
-                    <el-button type="info" icon="el-icon-arrow-left" style="opacity: 0.5">上一页</el-button>
+                    <el-button type="info" icon="el-icon-arrow-left">上一页</el-button>
                 </router-link>
                 <router-link to="todoAbout">
-                    <el-button type="info" style="opacity: 0.5">下一页<i class="el-icon-arrow-right el-icon--right"></i>
+                    <el-button type="info">下一页<i class="el-icon-arrow-right el-icon--right"></i>
                     </el-button>
                 </router-link>
             </el-button-group>
@@ -135,10 +135,13 @@
         margin: 20px 10px;
     }
 
-    .icon {
-        position: absolute;
-        left: 78%;
+    .pageLink {
+        position: relative;
+        left: 80%;
         top: 87%;
     }
 
+    .el-button {
+        opacity: 0.5
+    }
 </style>

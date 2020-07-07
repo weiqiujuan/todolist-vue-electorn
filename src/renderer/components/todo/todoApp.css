@@ -1,7 +1,7 @@
 .todoapp {
     background: #fff;
-    margin: 130px 0 40px 0;
-    position: relative;
+    margin: 130px auto 40px auto;
+    width: 90%;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
     0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
@@ -18,15 +18,10 @@
     color: #e6e6e6;
 }
 
-.todoapp input::input-placeholder {
-    font-style: italic;
-    font-weight: 300;
-    color: #e6e6e6;
-}
-
 .todoapp h4 {
     position: absolute;
-    top: -80px;
+    top: -5%;
+    left: 5%;
     width: 100%;
     font-size: 100px;
     font-weight: 100;
@@ -46,7 +41,6 @@
     font-family: inherit;
     font-weight: inherit;
     line-height: 1.4em;
-    border: 0;
     color: inherit;
     padding: 6px;
     border: 1px solid #999;

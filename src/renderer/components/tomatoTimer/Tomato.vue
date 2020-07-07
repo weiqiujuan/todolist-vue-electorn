@@ -1,5 +1,5 @@
 <template>
-    <div style="height: auto;">
+    <div class="tomato">
         <el-tabs v-model="activeName">
             <el-tab-pane label="番茄计时" name="work">
                 <CountDown/>
@@ -42,5 +42,7 @@
 </script>
 
 <style scoped>
-
+    .tomato{
+        padding-left: 5px;
+    }
 </style>
