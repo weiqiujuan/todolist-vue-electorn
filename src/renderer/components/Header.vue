@@ -15,7 +15,6 @@
 </template>
 
 <script>
-    import tools from '../model/tools';
     import {eventBus} from "../../eventBus";
     import {getData} from "../utils/api";
     import {message} from "../utils/message";
